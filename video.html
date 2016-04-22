@@ -15,7 +15,7 @@
     alert("video.js_loaded");
     // Load Video List from Youtube
     $(document).ready(function() {
-        var FEED_URL= "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBdmVf67MWq28e4kD6K6_XCll42CUXi6Q0&part=snippet&q=cricket";
+        var FEED_URL= "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBdmVf67MWq28e4kD6K6_XCll42CUXi6Q0&part=snippet&q=cricket&maxResults=12";
         $.ajax({
             url: FEED_URL,
             dataType: 'json',
@@ -76,13 +76,19 @@
                     success : function(data){
                         alert("Match Fictures data received");
                         console.log(data);
-                        matches = data;
+                        matches = data.data;
+                        var source = data.provider.source;
+                        $.each(matches, function(i,match){
+                            alert(match.title);
+                            var sideItemHTML = '<div class="featured-side-item"><div class="cl">&nbsp;</div><a href="'+source+'" class="left"><h4>'+ match.title+'</a></h4></div>';
+                            $('#featured-side').append(sideItemHTML);
+                        });
+
                     }
                 })
             });
 </script>
 <!--SCORE API-->
-<!--MATCH API-->
 <script>
     var scores = null;
     function(uniqueId) {
@@ -91,7 +97,7 @@
             url: FEED_URL,
             dataType: 'json',
             success: function (data) {
-                alert("Match Fictures data received");
+                alert("Match Score data received");
                 console.log(data);
                 scores = data;
             }
@@ -147,59 +153,15 @@
                 <div id="heading-box-cnt">
                     <div class="cl">&nbsp;</div>
 
-                    <!-- Main Slide Item -->
-                    <div class="featured-main">
-                        <a href="#"><img src="css/images/featured-main.jpg" alt="" /></a>
-                        <div class="featured-main-details">
-                            <div class="featured-main-details-cnt">
-                                <h4><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque turpis urna, rhoncus a tempus in, blandit vel nibh. Sed interdum erat eget lacus commodo mattis.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Main Slide Item -->
-
+                   <div  class="featured-side">
+                       <h1>Scores and Matches for Today</h1>
+                   </div>
                     <div class="featured-side">
+                        <h1>22 April 2016</h1>
+                    </div>
+                    <div id = "featured-side" class="featured-side">
 
-                        <!-- Slide Item 1 -->
-                        <div class="featured-side-item">
-                            <div class="cl">&nbsp;</div>
-                            <a href="#" class="left"><img src="css/images/featured-side-1.jpg" alt="" /></a>
-                            <h4><a href="#">Lorem ipsum dolor sit ame</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque turpis urna, rhoncus a tempus in</p>
-                            <div class="cl">&nbsp;</div>
-                        </div>
-                        <!-- End Slide Item 1 -->
 
-                        <!-- Slide Item 2 -->
-                        <div class="featured-side-item">
-                            <div class="cl">&nbsp;</div>
-                            <a href="#" class="left"><img src="css/images/featured-side-2.jpg" alt="" /></a>
-                            <h4><a href="#">Pellentesque tirpis urna</a></h4>
-                            <p>Pellentesque turpis urna, rhoncus eget lacus commodo mattis.</p>
-                            <div class="cl">&nbsp;</div>
-                        </div>
-                        <!-- End Slide Item 2 -->
-
-                        <!-- Slide Item 3 -->
-                        <div class="featured-side-item">
-                            <div class="cl">&nbsp;</div>
-                            <a href="#" class="left"><img src="css/images/featured-side-3.jpg" alt="" /></a>
-                            <h4><a href="#">Dolor si atema commodo</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque turpis urna</p>
-                            <div class="cl">&nbsp;</div>
-                        </div>
-                        <!-- End Slide Item 3 -->
-
-                        <!-- Slide Item 4 -->
-                        <div class="featured-side-item">
-                            <div class="cl">&nbsp;</div>
-                            <a href="#" class="left"><img src="css/images/featured-side-4.jpg" alt="" /></a>
-                            <h4><a href="#">Adipsicing elit dolor una leo</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque turpis urna, rhoncus a tempus in</p>
-                            <div class="cl">&nbsp;</div>
-                        </div>
-                        <!-- End Slide Item 4 -->
                     </div>
                     <div class="cl">&nbsp;</div>
                 </div>
@@ -215,69 +177,8 @@
 <div id="main">
     <div class="shell">
         <div class="cl">&nbsp;</div>
-        <div id="content">
-            <div class="cl">&nbsp;</div>
-            <div class="grey-box">
-                <h3><a href="#">Lorem ipsum dolor sit amet.</a></h3>
-                <a href="#"><img src="css/images/main-1.jpg" alt="" /></a>
-                <p>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum, odio tincidunt egestas</span>
-                    <a href="#" class="button">Read more</a>
-                </p>
-            </div>
-            <div class="grey-box">
-                <h3><a href="#">Curabitur elementum, odio tincidunt </a></h3>
-                <a href="#"><img src="css/images/main-2.jpg" alt="" /></a>
-                <p>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum, odio tincidunt egestas</span>
-                    <a href="#" class="button">Read more</a>
-                </p>
-            </div>
-            <div class="grey-box last">
-                <h3><a href="#">Etiam iaculis tortor vel arcu porta consectetur.</a></h3>
-                <a href="#"><img src="css/images/main-3.jpg" alt="" /></a>
-                <p>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum, odio tincidunt egestas</span>
-                    <a href="#" class="button">Read more</a>
-                </p>
-            </div>
-            <div class="grey-box last">
-                <h3><a href="#">Etiam iaculis tortor vel arcu porta consectetur.</a></h3>
-                <a href="#"><img src="css/images/main-3.jpg" alt="" /></a>
-                <p>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum, odio tincidunt egestas</span>
-                    <a href="#" class="button">Read more</a>
-                </p>
-            </div>
-            <div class="cl">&nbsp;</div>
-            <div class="video-box">
-                <div class="cl">&nbsp;</div>
-                <h2 class="left">video spot</h2>
-                <a href="#" class="button">All videos</a>
-                <div class="cl">&nbsp;</div>
-                <div class="video-item-box">
-                    <a href="#" class="left"><img src="css/images/video-1.jpg" alt="" /></a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                    <a href="#" class="watch-now">Watch now</a>
-                </div>
-                <div class="video-item-box second">
-                    <a href="#" class="left"><img src="css/images/video-2.jpg" alt="" /></a>
-                    <p>Curabitur consectetur tellus a diam tincidunt pellentesque</p>
-                    <a href="#" class="watch-now">Watch now</a>
-                </div>
-                <div class="video-item-box">
-                    <a href="#" class="left"><img src="css/images/video-3.jpg" alt="" /></a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                    <a href="#" class="watch-now">Watch now</a>
-                </div>
-                <div class="video-item-box second">
-                    <a href="#" class="left"><img src="css/images/video-4.jpg" alt="" /></a>
-                    <p>Aliquam erat volutpat. Nam tortor justo, pretium eget iaculis et</p>
-                    <a href="#" class="watch-now">Watch now</a>
-                </div>
-                <div class="cl">&nbsp;</div>
-            </div>
-        </div>
+        <div id="content" style="float:left; width:1200px;align-content: center">
+
         <div class="cl">&nbsp;</div>
     </div>
 </div>
@@ -287,9 +188,7 @@
 <div id="footer">
     <div class="shell">
         <div class="cl">&nbsp;</div>
-        <a href="#" class="left">TERMS OF USE</a>
-        <a href="#" class="left">PRIVACY POLICY</a>
-        <p class="right">&copy; Sitename.com. Design by <a href="http://chocotemplates.com">ChocoTemplates.com</a></p>
+        <p class="right">&copy; sportzone.com. Design by <a href="http://devmaany.co">Mayank Sharma</a></p>
         <div class="cl">&nbsp;</div>
     </div>
 </div>
