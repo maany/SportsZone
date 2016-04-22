@@ -8,12 +8,96 @@
     <!--<script type="text/javascript" src="js/jquery-2.2.3.min.js"/>-->
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="https://apis.google.com/js/client.js?onload=OnLoadCallback"></script>
-    <script src="js/video.js"/>
 
 </head>
 <body>
-<!--Youtube API init-->
+<script>
+    alert("video.js_loaded");
+    // Load Video List from Youtube
+    $(document).ready(function() {
+        var FEED_URL= "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBdmVf67MWq28e4kD6K6_XCll42CUXi6Q0&part=snippet&q=cricket";
+        $.ajax({
+            url: FEED_URL,
+            dataType: 'json',
+            success : function(data){
+                alert("Youtube data received");
+                // Load videos to the content div
+                //console.log(data);
+                $.each(data.items,function (i,e) {
+                    console.log(e);
+                    var videoId = e.id.videoId;
+                    var title = e.snippet.title;
+                    var desc = e.snippet.description;
+                    //var date = e.snipped.publishedAt;
+                    var channelTitle = e.snippet.channelTitle;
+                    var imageSrc = e.snippet.thumbnails.high.url;
+                    var vidURL = "http://www.youtube.com/embed/" + videoId;
+                    alert(videoId);
 
+                    // insert into div
+                    var fb_button = '<div class="fb-share-button" data-href="'+vidURL+'" data-layout="button_count" data-mobile-iframe="true"></div>';
+                    var appendData = '<div class="grey-box"><h3><a href="'+vidURL+'">'+title+'</a></h3><object width="205px" height="100px" data="'+vidURL+'"></object><br>'+fb_button+ '<p>'+desc+'</p>'+'</div>';
+                    $("#content").append(appendData);
+
+                });
+
+            }
+        })
+    });
+
+
+    // Search for a specified string.
+    function search(q) {
+        var request = gapi.client.youtube.search.list({
+            q: q,
+            part: 'snippet',
+            key: 'AIzaSyBdmVf67MWq28e4kD6K6_XCll42CUXi6Q0'
+        });
+
+        request.execute(function(response) {
+            var str = JSON.stringify(response.result);
+            $('#search-container').html('<pre>' + str + '</pre>');
+        });
+    }
+
+
+
+
+</script>
+
+<!--MATCH API-->
+<script>
+            var matches = null;
+            $(document).ready(function() {
+                var FEED_URL= "http://cricapi.com/api/cricket/";
+                $.ajax({
+                    url: FEED_URL,
+                    dataType: 'json',
+                    success : function(data){
+                        alert("Match Fictures data received");
+                        console.log(data);
+                        matches = data;
+                    }
+                })
+            });
+</script>
+<!--SCORE API-->
+<!--MATCH API-->
+<script>
+    var scores = null;
+    function(uniqueId) {
+        var FEED_URL = "http://cricapi.com/api/cricketScore?" + "uniqueId=" + uniqueId;
+        $.ajax({
+            url: FEED_URL,
+            dataType: 'json',
+            success: function (data) {
+                alert("Match Fictures data received");
+                console.log(data);
+                scores = data;
+            }
+        })
+    }
+</script>
 <!--Facebook API Init-->
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -57,17 +141,6 @@
     <div class="shell">
         <div id="heading-cnt">
 
-            <!-- Sub nav -->
-            <div id="side-nav">
-                <ul>
-                    <li class="active"><div class="link"><a href="#">home</a></div></li>
-                    <li><div class="link"><a href="#">ranking</a></div></li>
-                    <li><div class="link"><a href="#">results</a></div></li>
-                    <li><div class="link"><a href="#">schedules</a></div></li>
-                    <li><div class="link"><a href="#">photo gallery</a></div></li>
-                </ul>
-            </div>
-            <!-- End Sub nav -->
 
             <!-- Widget -->
             <div id="heading-box">
@@ -142,36 +215,6 @@
 <div id="main">
     <div class="shell">
         <div class="cl">&nbsp;</div>
-        <div id="sidebar">
-            <h2>news spot</h2>
-            <ul>
-                <li>
-                    <small class="date">12.05.09</small>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </li>
-                <li>
-                    <small class="date">12.05.09</small>
-                    <p>Donec venenatis varius urna vitae congue.</p>
-                </li>
-                <li>
-                    <small class="date">12.05.09</small>
-                    <p>Ullam vel neque ut lectus cursus dapibus.</p>
-                </li>
-                <li>
-                    <small class="date">12.05.09</small>
-                    <p>Praesent pellentesque arcu convallis ante dignissim quis ultrices felis iaculis.</p>
-                </li>
-                <li>
-                    <small class="date">12.05.09</small>
-                    <p>Ut eget lorem elit. Donec lorem eros, congue vel mollis non, tincidunt a nisl.</p>
-                </li>
-                <li>
-                    <small class="date">12.05.09</small>
-                    <p>Curabitur consectetur tellus a diam tincidunt pellentesque. </p>
-                </li>
-            </ul>
-            <a href="#" class="archives">News Archives</a>
-        </div>
         <div id="content">
             <div class="cl">&nbsp;</div>
             <div class="grey-box">
@@ -185,6 +228,14 @@
             <div class="grey-box">
                 <h3><a href="#">Curabitur elementum, odio tincidunt </a></h3>
                 <a href="#"><img src="css/images/main-2.jpg" alt="" /></a>
+                <p>
+                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum, odio tincidunt egestas</span>
+                    <a href="#" class="button">Read more</a>
+                </p>
+            </div>
+            <div class="grey-box last">
+                <h3><a href="#">Etiam iaculis tortor vel arcu porta consectetur.</a></h3>
+                <a href="#"><img src="css/images/main-3.jpg" alt="" /></a>
                 <p>
                     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum, odio tincidunt egestas</span>
                     <a href="#" class="button">Read more</a>

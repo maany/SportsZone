@@ -4,8 +4,9 @@
 alert("video.js_loaded");
 
 $(document).ready(function() {
+    var FEED_URL= "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBdmVf67MWq28e4kD6K6_XCll42CUXi6Q0&part=snippet&q=cricket";
     $.ajax({
-        url: "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBdmVf67MWq28e4kD6K6_XCll42CUXi6Q0&part=snippet&q=cricket",
+        url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(FEED_URL),
         dataType: 'json',
         success : function(data){
             alert("Youtube data received");
@@ -39,6 +40,8 @@ function search(q) {
         $('#search-container').html('<pre>' + str + '</pre>');
     });
 }
+
+
 
 
 
