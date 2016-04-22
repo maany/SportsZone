@@ -1,11 +1,9 @@
 /**
  * Created by devmaany on 22/4/16.
  */
-alert("newsfeed.js_loaded");
 
 $(document).ready(function () {
     try {
-        alert("document ready");
         var FEED_URL = "http://www.espncricinfo.com/rss/content/story/feeds/968923.xml";
         var feed_element = document.getElementById("sidebar")
         $.ajax({
