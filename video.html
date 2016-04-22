@@ -12,7 +12,7 @@
 </head>
 <body>
 <script>
-    alert("video.js_loaded");
+    //alert("video.js_loaded");
     // Load Video List from Youtube
     $(document).ready(function() {
         var FEED_URL= "https://www.googleapis.com/youtube/v3/search?key=AIzaSyBdmVf67MWq28e4kD6K6_XCll42CUXi6Q0&part=snippet&q=cricket&maxResults=12";
@@ -20,7 +20,7 @@
             url: FEED_URL,
             dataType: 'json',
             success : function(data){
-                alert("Youtube data received");
+                //alert("Youtube data received");
                 // Load videos to the content div
                 //console.log(data);
                 $.each(data.items,function (i,e) {
@@ -32,7 +32,7 @@
                     var channelTitle = e.snippet.channelTitle;
                     var imageSrc = e.snippet.thumbnails.high.url;
                     var vidURL = "http://www.youtube.com/embed/" + videoId;
-                    alert(videoId);
+//                    alert(videoId);
 
                     // insert into div
                     var fb_button = '<div class="fb-share-button" data-href="'+vidURL+'" data-layout="button_count" data-mobile-iframe="true"></div>';
@@ -74,12 +74,12 @@
                     url: FEED_URL,
                     dataType: 'json',
                     success : function(data){
-                        alert("Match Fictures data received");
+//                        alert("Match Fictures data received");
                         console.log(data);
                         matches = data.data;
                         var source = data.provider.source;
                         $.each(matches, function(i,match){
-                            alert(match.title);
+//                            alert(match.title);
                             var sideItemHTML = '<div class="featured-side-item"><div class="cl">&nbsp;</div><a href="'+source+'" class="left"><h4>'+ match.title+'</a></h4></div>';
                             $('#featured-side').append(sideItemHTML);
                         });
@@ -97,7 +97,7 @@
             url: FEED_URL,
             dataType: 'json',
             success: function (data) {
-                alert("Match Score data received");
+//                alert("Match Score data received");
                 console.log(data);
                 scores = data;
             }
@@ -129,13 +129,11 @@
 <!-- Navigation -->
 <div id="navigation">
     <div class="shell">
-        <div class="cl">&nbsp;</div>
+        <center><div class="cl" style="left: auto;align-content: center">&nbsp;</div></center>
         <ul>
-            <li><a href="#">news &amp; events</a></li>
-            <li><a href="#">photo gallery</a></li>
-            <li><a href="#">video gallery</a></li>
-            <li><a href="#">community</a></li>
-            <li><a href="#">schedules</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">The Hub</a></li>
+
         </ul>
         <div class="cl">&nbsp;</div>
     </div>
